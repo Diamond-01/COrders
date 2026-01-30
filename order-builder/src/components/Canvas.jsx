@@ -3,7 +3,7 @@ import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import SortableField from './SortableField';
+import SortableField from './sortableField.jsx';
 
 export default function Canvas({ fields, selectedField, setSelectedField }) {
   const { setNodeRef, isOver } = useDroppable({
