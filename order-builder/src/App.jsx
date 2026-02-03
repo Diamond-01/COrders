@@ -26,7 +26,13 @@ function App() {
       setFields((prev) => {
         const oldIndex = prev.findIndex((f) => f.id === active.id);
         const newIndex = prev.findIndex((f) => f.id === over.id);
-        return arrayMove(prev, oldIndex, newIndex);
+
+        const reordered = arrayMove(prev, oldIndex, newIndex);
+
+        return reordered.map((field, index) => ({
+          ...field,
+          order: index,
+        }));
       });
       return;
     }
@@ -38,6 +44,7 @@ function App() {
       const newField = {
         id: uuid(),
         type: baseField.type,
+        order: fields.length,
         props: {
           label: baseField.label,
           required: false,

@@ -10,6 +10,10 @@ export default function Canvas({ fields, selectedField, setSelectedField }) {
     id: 'canvas-dropzone',
   });
 
+  const orderedFields = [...fields].sort(
+    (a, b) => a.order - b.order
+  );
+
   return (
     <div
       ref={setNodeRef}
@@ -29,7 +33,7 @@ export default function Canvas({ fields, selectedField, setSelectedField }) {
       )}
 
       <SortableContext
-        items={fields.map((f) => f.id)}
+        items={orderedFields.map((f) => f.id)}
         strategy={verticalListSortingStrategy}
       >
         {fields.map((field) => (
