@@ -1,13 +1,10 @@
-const crypto = require('crypto'); // Necesario para generar IDs
+const crypto = require('crypto');
 const { validateOrderStructure } = require('../utils/validation.js');
 
-// Base de datos temporal
 let ordersDatabase = [];
 
 const createOrder = (orderData) => {
-
     validateOrderStructure(orderData); 
-    // ---------------------------------
 
     const newOrder = {
         id: crypto.randomUUID(),
@@ -24,4 +21,9 @@ const getAllOrders = () => {
     return ordersDatabase;
 };
 
-module.exports = { createOrder, getAllOrders };
+const getOrderById = (id) => {
+    const order = ordersDatabase.find(o => o.id === id);
+    return order || null; 
+};
+
+module.exports = { createOrder, getAllOrders, getOrderById };

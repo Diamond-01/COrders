@@ -1,35 +1,38 @@
-async function testValidation() {
-    const url = 'http://localhost:3000/api/orders';
+async function testFullFlow() {
+    const baseUrl = 'http://localhost:3000/api/orders';
 
-    console.log('--- INTENTO DE SABOTAJE (Debe fallar) ---');
-    
-    // Esta orden tiene un tipo "magia" que NO existe
-    const ordenInvalida = {
-        title: "Orden Hackeada",
-        fields: [
-            { id: "f1", type: "magia", order: 1 } 
-        ]
+    console.log('--- 1. Creando una orden nueva ---');
+    const nuevaOrden = {
+        title: "Orden para buscar",
+        fields: [{ id: "f1", type: "text", label: "Busca esto", order: 1 }]
     };
 
-    try {
-        const response = await fetch(url, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(ordenInvalida)
-        });
+    const createRes = await fetch(baseUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(nuevaOrden)
+    });
+    const ordenCreada = await createRes.json();
+    console.log('✅ Orden Creada con ID:', ordenCreada.id);
 
-        const data = await response.json();
-        
-        if (!response.ok) {
-            console.log('✅ EXCELENTE: El servidor rechazó la orden inválida.');
-            console.log('   Razón:', data.message);
-        } else {
-            console.log('❌ PELIGRO: El servidor aceptó datos incorrectos.');
-        }
+    console.log('\n--- 2. Buscando esa orden específica por ID ---');
+    const getRes = await fetch(`${baseUrl}/${ordenCreada.id}`);
+    
+    if (getRes.ok) {
+        const ordenEncontrada = await getRes.json();
+        console.log('✅ EXITO: Se recuperó la orden correcta.');
+        console.log('   Título:', ordenEncontrada.title);
+    } else {
+        console.log('❌ ERROR: No se encontró la orden.');
+    }
 
-    } catch (error) {
-        console.error('Error:', error.message);
+    console.log('\n--- 3. Probando buscar un ID falso ---');
+    const fakeRes = await fetch(`${baseUrl}/id-falso-123`);
+    if (fakeRes.status === 404) {
+        console.log('✅ EXITO: El sistema respondió 404 correctamente para ID inexistente.');
+    } else {
+        console.log('❌ ERROR: Debería haber fallado con 404.');
     }
 }
 
-testValidation();
+testFullFlow();
