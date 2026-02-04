@@ -11,7 +11,7 @@ export const crearNumberField = (id:string, overrides?:Partial<NumberField>): Nu
     id,
     type: FieldTypes.NUMBER,
     label: "Número",
-    requeired: false,
+    required: false,
     min: null,
     max: null,
     ...overrides,

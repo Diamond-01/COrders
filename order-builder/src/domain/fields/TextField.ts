@@ -10,7 +10,7 @@ export const crearTextField = (id:string, overrides?:Partial<TextField>): TextFi
     id,
     type: FieldTypes.TEXT,
     label: "Texto",
-    requeired: false,
+    required: false,
     placeholder: "Ingrese texto",
     ...overrides,
 });
