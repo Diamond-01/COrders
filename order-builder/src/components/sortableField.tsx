@@ -1,7 +1,18 @@
+// src/components/SortableField.tsx
+
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { BaseField } from '../domain/fields/BaseField';
 
-export default function SortableField({ field, onSelect, isSelected }) {
+export default function SortableField({ 
+  field, 
+  onSelect, 
+  isSelected 
+}: { 
+  field: BaseField;
+  onSelect: (field: BaseField | null) => void;
+  isSelected: boolean;
+}) {
   const {
     attributes,
     listeners,

@@ -1,4 +1,29 @@
-export default function FieldEditor({ selectedField, onUpdate, onDelete }) {
+// src/components/FieldEditor.tsx
+
+interface BaseFieldProps {
+  label: string;
+  required: boolean;
+}
+
+interface SelectFieldProps extends BaseFieldProps {
+  options: Array<{ value: string; label: string }>;
+}
+
+interface SelectedField {
+  id: string;
+  type: string;
+  props: BaseFieldProps | SelectFieldProps;
+}
+
+export default function FieldEditor({ 
+  selectedField, 
+  onUpdate, 
+  onDelete 
+}: { 
+  selectedField: SelectedField | null;
+  onUpdate: (id: string, updates: Partial<BaseFieldProps>) => void;
+  onDelete: (id: string) => void;
+}) {
   if (!selectedField) {
     return <p>Selecciona un campo para editar</p>;
   }
