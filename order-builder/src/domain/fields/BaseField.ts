@@ -14,3 +14,5 @@ export interface BaseField {
     [key: string]: any;
   };
 }
+
+export { FieldTypes };
