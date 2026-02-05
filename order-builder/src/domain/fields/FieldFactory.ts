@@ -7,12 +7,12 @@ import { NumberField } from './NumberField';
 import { DateField } from './DateField';
 import { SelectField, SelectOption } from './SelectField';
 
-// ✅ Tipo unión de todos los campos
+// union de todos los campos
 export type Field = TextField | NumberField | DateField | SelectField;
 
-/**
- * Crea un nuevo campo con propiedades predeterminadas
- */
+
+  // Se crea un nuevo campo (prop preterminadas)
+ 
 export function createField(type: FieldTypes): Field {
   const id = uuid();
   
@@ -71,7 +71,7 @@ export function createField(type: FieldTypes): Field {
         props: {
           label: 'Selector',
           required: false,
-          options: defaultOptions, // ✅ Opciones predeterminadas
+          options: defaultOptions, 
         },
       };
 

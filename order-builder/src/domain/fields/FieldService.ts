@@ -5,7 +5,7 @@ import { FieldTypes } from './FieldTypes';
 
 export class FieldService {
   /**
-   * Serializa un campo a formato JSON (para guardar/enviar)
+   * ! Serializa un campo a formato JSON (para guardar/enviar)
    */
   static serialize(field: Field): any {
     const base = {
@@ -16,7 +16,7 @@ export class FieldService {
       order: field.order,
     };
 
-    // ✅ Solo incluir 'options' si es un campo SELECT
+    // Si es un campo de tipo SELECT, se incluyen las opciones
     if (field.type === FieldTypes.SELECT) {
       return {
         ...base,
@@ -27,7 +27,7 @@ export class FieldService {
       };
     }
 
-    // Para otros tipos, solo incluir props básicos
+    // Para otros tipos, solo se incluyen propiedades básicos
     return {
       ...base,
       props: {
@@ -38,14 +38,14 @@ export class FieldService {
   }
 
   /**
-   * Serializa múltiples campos a JSON
+   * ? Serializa múltiples campos a JSON
    */
   static serializeAll(fields: Field[]): any[] {
     return fields.map(field => this.serialize(field));
   }
 
   /**
-   * Crea un campo nuevo (wrapper conveniente)
+   * ? Crea un campo nuevo
    */
   static create(type: FieldTypes): Field {
     return createField(type);

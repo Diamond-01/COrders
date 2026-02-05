@@ -2,18 +2,18 @@
 
 import { BaseField, FieldTypes } from './BaseField';
 
-// ✅ Definimos la estructura de las opciones
+// se define la estructura de las opciones
 export interface SelectOption {
   value: string;
   label: string;
 }
 
-// ✅ El campo selector tiene opciones
+// campo selector tiene opciones
 export interface SelectField extends BaseField {
   type: FieldTypes.SELECT;
   props: {
     label: string;
     required: boolean;
-    options: SelectOption[]; // ✅ Propiedad clave
+    options: SelectOption[]; // aqui van las opciones
   };
 }

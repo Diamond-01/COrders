@@ -9,26 +9,26 @@ import FieldPalette from './components/FieldPalette';
 import Canvas from './components/Canvas';
 import FieldEditor from './components/FieldEditor';
 
-// 🔑 Importar la interfaz BaseField para tipado correcto
-import { BaseField } from './domain/fields/BaseField';
 
-function App() {
-  // ✅ Tipar el estado correctamente
+import { BaseField } from './domain/fields/BaseField'; // La interface de BaseField se importa para tipar los campos
+
+function App() { // todo IMPLEMENTAR LOGICA DE CAMPOS A APP
+  // tipar el estado correctamente
   const [fields, setFields] = useState<BaseField[]>([]);
   const [selectedField, setSelectedField] = useState<BaseField | null>(null);
 
-  // 🧪 Prueba inicial (opcional - puedes eliminar después)
+  
   useEffect(() => {
-    console.log('✅ App.tsx: Iniciando con campos vacíos');
+    console.log('✅ App.tsx: Iniciando con campos vacíos'); //todo prueba de inicio en consola
   }, []);
 
-  // 🔁 Reordenar campos existentes
+  // reordenar campos existentes
   function handleDragEnd(event: any) {
     const { active, over } = event;
 
     if (!over) return;
 
-    // Reordenar campos existentes
+    // reordenar campos existentes
     if (
       active.id !== over.id &&
       fields.find((f) => f.id === active.id) &&
@@ -48,11 +48,11 @@ function App() {
       return;
     }
 
-    // Crear campo nuevo desde Sidebar
-    if (over.id === 'canvas-dropzone' && active.data.current?.type) {
+    
+    if (over.id === 'canvas-dropzone' && active.data.current?.type) { // ? CREAR campo nuevo desde Sidebar
       const baseField = active.data.current;
 
-      // ✅ Crear nuevo campo con estructura correcta
+      // ? CREAR un nuevo campo con estructura correcta
       const newField: BaseField = {
         id: uuid(),
         type: baseField.type,
@@ -70,7 +70,7 @@ function App() {
     }
   }
 
-  // ✏️ Actualizar campo
+  // ? ACTUALIZAR campo
   function updateField(id: string, newProps: Partial<{ label: string; required: boolean }>) {
     setFields((prev) =>
       prev.map((field) =>
@@ -105,7 +105,7 @@ function App() {
     );
   }
 
-  // 🗑️ Eliminar campo
+  // ? Eliminar campo
   function deleteField(id: string) {
     setFields((prev) => prev.filter((field) => field.id !== id));
     setSelectedField(null);
@@ -121,7 +121,7 @@ function App() {
 
       
         {/* <div style={{ display: 'none' }}>
-          <pre>{JSON.stringify(fields, null, 2)}</pre> 
+          <pre>{JSON.stringify(fields, null, 2)}</pre> //todo prueba de estado en consola
         </div> */}
 
         {/* Canvas */}

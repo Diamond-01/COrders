@@ -1,13 +1,13 @@
 // src/test-fields.ts
 
-// Importar directamente desde src/domain/fields/
+
 import { FieldTypes } from './domain/fields/FieldTypes';
 import { FieldService } from './domain/fields/FieldService';
 
 console.log('=== INICIANDO PRUEBAS DE CAMPOS ===');
 
 try {
-  // Test 1: Crear campos
+  // Prueba 1: Crear campos
   const textField = FieldService.create(FieldTypes.TEXT);
   const selectField = FieldService.create(FieldTypes.SELECT);
 
@@ -15,12 +15,12 @@ try {
   console.log('TextField:', textField);
   console.log('SelectField:', selectField);
 
-  // Test 2: Verificar options
+  // Prueba 2: Verificar options opciones
   if (selectField.props && 'options' in selectField.props) {
     console.log('✅ SelectField tiene options:', selectField.props.options);
   }
 
-  // Test 3: Serialización
+  // Prueba 3: Serialización con JSON
   const textJson = FieldService.serialize(textField);
   const selectJson = FieldService.serialize(selectField);
 

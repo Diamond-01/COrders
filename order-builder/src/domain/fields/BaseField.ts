@@ -4,7 +4,7 @@ import { FieldTypes } from './FieldTypes';
 
 export interface BaseField {
   id: string;
-  type: FieldTypes; // ✅ Ahora usa el enum oficial
+  type: FieldTypes; // enum se utiliza aqui
   label: string;
   required: boolean;
   order: number;
