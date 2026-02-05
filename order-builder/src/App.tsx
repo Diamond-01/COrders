@@ -34,11 +34,11 @@ function App() {
     // Crear nuevo campo
     if (over.id === 'canvas-dropzone' && active.data.current?.type) {
       const baseField = active.data.current;
-      
+
       try {
         const newField = createField(baseField.type);
         console.log('🎯 Campo creado:', newField); // 👈 ¡Ahora verás esto!
-        
+
         setFields(prev => [
           ...prev,
           {
@@ -58,12 +58,47 @@ function App() {
     }
   };
 
-  const updateField = (id: string, updates: any) => {
-    setFields(prev => 
-      prev.map(f => f.id === id ? { ...f, ...updates, props: { ...f.props, ...updates } } : f)
-    );
-    setSelectedField(prev => prev?.id === id ? { ...prev, ...updates, props: { ...prev.props, ...updates } } : prev);
-  };
+const updateField = (id: string, updates: any) => {
+  setFields(prev => 
+    prev.map(f => {
+      if (f.id === id) {
+        const newLabel = updates.label !== undefined ? updates.label : f.label;
+        const newRequired = updates.required !== undefined ? updates.required : f.required;
+        
+        return {
+          ...f,
+          label: newLabel,
+          required: newRequired,
+          props: {
+            ...f.props,
+            label: newLabel,
+            required: newRequired,
+          }
+        };
+      }
+      return f;
+    })
+  );
+
+  setSelectedField(prev => {
+    if (prev?.id === id) {
+      const newLabel = updates.label !== undefined ? updates.label : prev.label;
+      const newRequired = updates.required !== undefined ? updates.required : prev.required;
+      
+      return {
+        ...prev,
+        label: newLabel,
+        required: newRequired,
+        props: {
+          ...prev.props,
+          label: newLabel,
+          required: newRequired,
+        }
+      };
+    }
+    return prev;
+  });
+};
 
   const deleteField = (id: string) => {
     setFields(prev => prev.filter(f => f.id !== id));
@@ -72,7 +107,7 @@ function App() {
 
   return (
 
-    
+
     <DndContext onDragEnd={handleDragEnd}>
       <div style={{ display: 'flex', height: '100vh' }}>
         <div style={{ width: '20%', borderRight: '1px solid #ccc', padding: '10px' }}>
@@ -81,14 +116,20 @@ function App() {
         <div style={{ width: '60%', padding: '10px' }}>
           <Canvas fields={fields} selectedField={selectedField} setSelectedField={setSelectedField} />
         </div>
+        
         <div style={{ width: '20%', borderLeft: '1px solid #ccc', padding: '10px' }}>
           <FieldEditor selectedField={selectedField} onUpdate={updateField} onDelete={deleteField} />
         </div>
+        {/* <button onClick={() => {
+          console.log('📄 Campos actuales:', fields);
+        }}>
+          Ver campos
+        </button> */}
       </div>
     </DndContext>
-      
 
-      
+
+
   );
 }
 
