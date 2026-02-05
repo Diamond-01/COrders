@@ -2,28 +2,28 @@ const crypto = require('crypto');
 const { validateOrderStructure } = require('../utils/validation.js');
 const OrderModel = require('../models/order.model');
 
-const createOrder = async (orderData) => { 
+const createOrder = async (orderData) => {
+    // 1. Validar estructura estricta
     validateOrderStructure(orderData); 
 
-
+    // 2. Preparar datos según corrección
     const newOrder = {
         id: crypto.randomUUID(),
         title: orderData.title,
-        fields: orderData.fields,
+        fields: orderData.fields, 
         createdAt: new Date().toISOString()
     };
 
-    // Guardar en BD (Esperamos la respuesta)
+    // 3. Guardar
     return await OrderModel.save(newOrder);
 };
 
-const getAllOrders = async () => { 
+const getAllOrders = async () => {
     return await OrderModel.findAll();
 };
 
-const getOrderById = async (id) => { 
+const getOrderById = async (id) => {
     return await OrderModel.findById(id);
 };
 
 module.exports = { createOrder, getAllOrders, getOrderById };
-

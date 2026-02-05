@@ -1,16 +1,16 @@
-const pool = require('../db'); // Importamos la conexión real
+const pool = require('../db');
 
-const save = async (newOrder) => {
+const save = async (orderData) => {
     const query = `
-        INSERT INTO orders (id, title, fields, created_at) 
+        INSERT INTO orders (id, title, schema, created_at) 
         VALUES ($1, $2, $3, $4) 
         RETURNING *
     `;
     const values = [
-        newOrder.id, 
-        newOrder.title, 
-        JSON.stringify(newOrder.fields), // Convertimos el array a JSON para guardarlo
-        newOrder.createdAt
+        orderData.id, 
+        orderData.title, 
+        JSON.stringify(orderData), 
+        orderData.createdAt
     ];
 
     const result = await pool.query(query, values);

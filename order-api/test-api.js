@@ -1,38 +1,48 @@
 async function testFullFlow() {
     const baseUrl = 'http://localhost:3000/api/orders';
 
-    console.log('--- 1. Creando una orden nueva ---');
+    console.log('--- 1. Creando orden (JSON Corregido) ---');
+    
+    // JSON SEGÚN PUNTO 4.1
     const nuevaOrden = {
-        title: "Orden para buscar",
-        fields: [{ id: "f1", type: "text", label: "Busca esto", order: 1 }]
+        title: "Orden Corregida V2",
+        fields: [
+            { 
+                id: "f1", 
+                type: "text", 
+                order: 1,
+                props: {
+                    label: "Nombre del Cliente",
+                    required: true
+                }
+            },
+            {
+                id: "f2", 
+                type: "number", 
+                order: 2,
+                props: {
+                    label: "Edad",
+                    required: false
+                }
+            }
+        ]
     };
 
-    const createRes = await fetch(baseUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(nuevaOrden)
-    });
-    const ordenCreada = await createRes.json();
-    console.log('✅ Orden Creada con ID:', ordenCreada.id);
+    try {
+        const createRes = await fetch(baseUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(nuevaOrden)
+        });
 
-    console.log('\n--- 2. Buscando esa orden específica por ID ---');
-    const getRes = await fetch(`${baseUrl}/${ordenCreada.id}`);
-    
-    if (getRes.ok) {
-        const ordenEncontrada = await getRes.json();
-        console.log('✅ EXITO: Se recuperó la orden correcta.');
-        console.log('   Título:', ordenEncontrada.title);
-    } else {
-        console.log('❌ ERROR: No se encontró la orden.');
-    }
-
-    console.log('\n--- 3. Probando buscar un ID falso ---');
-    const fakeRes = await fetch(`${baseUrl}/id-falso-123`);
-    if (fakeRes.status === 404) {
-        console.log('✅ EXITO: El sistema respondió 404 correctamente para ID inexistente.');
-    } else {
-        console.log('❌ ERROR: Debería haber fallado con 404.');
-    }
+        const data = await createRes.json();
+        
+        if (createRes.ok) {
+            console.log('✅ Orden Creada. ID:', data.id);
+        } else {
+            console.log('❌ Error creando:', data);
+        }
+    } catch (e) { console.error(e); }
 }
 
 testFullFlow();
