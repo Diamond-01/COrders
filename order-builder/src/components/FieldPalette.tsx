@@ -2,14 +2,14 @@
 
 import { useDraggable } from '@dnd-kit/core';
 
-// 🔑 Definimos el tipo para los campos de la paleta
+// Definimos tipo para los campos de la paleta
 interface PaletteField {
   type: string;
   label: string;
   defaultProps?: Record<string, any>;
 }
 
-// 🔑 Tipamos FIELD_TYPES
+// Tipamos FIELD_TYPES
 const FIELD_TYPES: PaletteField[] = [
   { type: 'text', label: 'Texto' },
   { type: 'number', label: 'Número' },
@@ -17,7 +17,7 @@ const FIELD_TYPES: PaletteField[] = [
   { type: 'select', label: 'Selector' },
 ];
 
-// 🔑 Agregamos tipado a DraggableField
+// tipado a DraggableField
 function DraggableField({ field }: { field: PaletteField }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: field.type,

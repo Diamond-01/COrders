@@ -4,14 +4,14 @@ import { useState } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
-// Solo importa createField
-import { createField } from './domain/fields/FieldFactory';
+
+import { createField } from './domain/fields/FieldFactory'; //se importa la funcion createField
 
 import FieldPalette from './components/FieldPalette';
 import Canvas from './components/Canvas';
 import FieldEditor from './components/FieldEditor';
 
-function App() {
+function App() { //todo Falta Integrar la logica de campos a App.tsx
   const [fields, setFields] = useState<any[]>([]);
   const [selectedField, setSelectedField] = useState<any>(null);
 
@@ -20,7 +20,7 @@ function App() {
 
     if (!over) return;
 
-    // Reordenar
+    // Para reordenar
     if (active.id !== over.id && fields.find(f => f.id === active.id)) {
       setFields(prev => {
         const oldIndex = prev.findIndex(f => f.id === active.id);
@@ -31,13 +31,13 @@ function App() {
       return;
     }
 
-    // Crear nuevo campo
+    // Creamos un nuevo campo
     if (over.id === 'canvas-dropzone' && active.data.current?.type) {
       const baseField = active.data.current;
 
       try {
         const newField = createField(baseField.type);
-        console.log('🎯 Campo creado:', newField); // 👈 ¡Ahora verás esto!
+        console.log('Campo creado:', newField); // PRUEBAS CONSOLA
 
         setFields(prev => [
           ...prev,
@@ -53,11 +53,12 @@ function App() {
           }
         ]);
       } catch (error) {
-        console.error('❌ Error al crear campo:', error);
+        console.error('Error al crear campo:', error); //PRUEBA ERROR
       }
     }
   };
 
+  //Actualiza un campo
 const updateField = (id: string, updates: any) => {
   setFields(prev => 
     prev.map(f => {
@@ -79,7 +80,7 @@ const updateField = (id: string, updates: any) => {
       return f;
     })
   );
-
+// Si el campo editado es el seleccionado, actualizarlo también
   setSelectedField(prev => {
     if (prev?.id === id) {
       const newLabel = updates.label !== undefined ? updates.label : prev.label;
@@ -121,7 +122,7 @@ const updateField = (id: string, updates: any) => {
           <FieldEditor selectedField={selectedField} onUpdate={updateField} onDelete={deleteField} />
         </div>
         {/* <button onClick={() => {
-          console.log('📄 Campos actuales:', fields);
+          console.log('📄 Campos actuales:', fields); // PRUEBAS
         }}>
           Ver campos
         </button> */}
