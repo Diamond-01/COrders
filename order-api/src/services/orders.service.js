@@ -9,8 +9,17 @@ const createOrder = async (orderData) => {
     // 2. Preparar datos según corrección
     const newOrder = {
         id: crypto.randomUUID(),
-        title: orderData.title,
-        fields: orderData.fields, 
+        title: orderData.title || null,
+
+        schema: {
+            type: 'dynamic-order',
+            version: '1.0',
+            fields: orderData.fields,
+            metadata: {
+            created_by: 'system',
+            environment: process.env.NODE_ENV || 'development'
+            }
+        },
         createdAt: new Date().toISOString()
     };
 

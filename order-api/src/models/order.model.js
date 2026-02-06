@@ -1,4 +1,4 @@
-const pool = require('../db');
+const pool = require('../config/db');
 
 const save = async (orderData) => {
     const query = `
@@ -7,9 +7,9 @@ const save = async (orderData) => {
         RETURNING *
     `;
     const values = [
-        orderData.id, 
-        orderData.title, 
-        JSON.stringify(orderData), 
+        orderData.id,
+        orderData.title,
+        JSON.stringify(orderData.schema),
         orderData.createdAt
     ];
 
