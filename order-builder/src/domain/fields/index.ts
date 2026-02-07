@@ -1,7 +1,7 @@
 // src/domain/fields/index.ts
 
 // Exportar tipos con 'export type'
-export type { FieldTypes } from './FieldTypes';
+export { FieldTypes } from './FieldTypes';
 
 // Exportar interfaces y tipos
 export type { Field } from './FieldFactory';

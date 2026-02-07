@@ -21,8 +21,6 @@ export function createField(type: FieldTypes): Field {
       return {
         id,
         type: FieldTypes.TEXT,
-        label: 'Texto',
-        required: false,
         order: 0,
         props: {
           label: 'Texto',
@@ -34,8 +32,6 @@ export function createField(type: FieldTypes): Field {
       return {
         id,
         type: FieldTypes.NUMBER,
-        label: 'Número',
-        required: false,
         order: 0,
         props: {
           label: 'Número',
@@ -47,8 +43,6 @@ export function createField(type: FieldTypes): Field {
       return {
         id,
         type: FieldTypes.DATE,
-        label: 'Fecha',
-        required: false,
         order: 0,
         props: {
           label: 'Fecha',
@@ -65,8 +59,6 @@ export function createField(type: FieldTypes): Field {
       return {
         id,
         type: FieldTypes.SELECT,
-        label: 'Selector',
-        required: false,
         order: 0,
         props: {
           label: 'Selector',

@@ -11,8 +11,6 @@ export class FieldService {
     const base = {
       id: field.id,
       type: field.type,
-      label: field.label,
-      required: field.required,
       order: field.order,
     };
 
