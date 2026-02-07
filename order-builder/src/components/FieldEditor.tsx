@@ -184,7 +184,7 @@ export default function FieldEditor({
         </div>
       )}
 
-      <div> //Boton de eliminar
+      <div> 
         <button
         onClick={() => {
             const confirmed = window.confirm('¿Seguro que deseas eliminar este campo?');
