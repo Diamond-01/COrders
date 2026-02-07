@@ -1,34 +1,21 @@
 // src/components/FieldEditor.tsx
+import { Field, FieldTypes, SelectField } from '../domain/fields';
 
-interface BaseFieldProps {
-  label: string;
-  required: boolean;
-}
-
-interface SelectFieldProps extends BaseFieldProps {
-  options: Array<{ value: string; label: string }>;
-}
-
-interface SelectedField {
-  id: string;
-  type: string;
-  props: BaseFieldProps | SelectFieldProps;
-}
-
-export default function FieldEditor({ 
-  selectedField, 
-  onUpdate, 
-  onDelete 
-}: { 
-  selectedField: SelectedField | null;
-  onUpdate: (id: string, updates: Partial<BaseFieldProps>) => void;
+export default function FieldEditor({
+  field,
+  onUpdate,
+  onDelete,
+}: {
+  field: Field | null;
+  onUpdate: (id: string, props: any) => void;
   onDelete: (id: string) => void;
 }) {
-  if (!selectedField) {
+  if (!field) {
     return <p>Selecciona un campo para editar</p>;
   }
 
-  const { type, props } = selectedField;
+  const { id, type } = field;
+  const props = field.props;
 
   return (
     <div style={{ padding: '10px', border: '1px solid #ccc' }}>
@@ -44,34 +31,165 @@ export default function FieldEditor({
           type="text"
           value={props.label}
           onChange={(e) =>
-            onUpdate(selectedField.id, {
-              label: e.target.value,
-            })
+            onUpdate(id, { label: e.target.value })
           }
-          style={{ width: '100%' }}
         />
       </div>
-
-      <div style={{ marginTop: '8px' }}>
+      <div>
         <label>
           <input
             type="checkbox"
             checked={props.required}
             onChange={(e) =>
-              onUpdate(selectedField.id, {
-                required: e.target.checked,
-              })
+              onUpdate(id, { required: e.target.checked })
             }
           />
           {' '}Requerido
         </label>
       </div>
-      <div>
+      {field.type === FieldTypes.SELECT && (
+        <div style={{ marginTop: '12px' }}>
+          <h4>Opciones</h4>
+
+          {(field as SelectField).props.options.map((opt, index) => (
+            <div key={index} style={{ display: 'flex', gap: '6px' }}>
+              <input
+                type="text"
+                value={opt.label}
+                onChange={(e) => {
+                  const options = [...(field as SelectField).props.options];
+                  options[index] = { ...opt, label: e.target.value };
+                  onUpdate(field.id, { options });
+                }}
+              />
+
+              <button
+                type="button"
+                onClick={() => {
+                  const options = (field as SelectField).props.options.filter(
+                    (_, i) => i !== index
+                  );
+                  onUpdate(field.id, { options });
+                }}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+
+          <button
+            type="button"
+            onClick={() =>
+              onUpdate(field.id, {
+                options: [
+                  ...(field as SelectField).props.options,
+                  { value: `opt-${Date.now()}`, label: 'Nueva opción' },
+                ],
+              })
+            }
+          >
+            + Agregar opción
+          </button>
+        </div>
+      )}
+
+      {field.type === FieldTypes.NUMBER && (
+        <div style={{ marginTop: '12px' }}>
+          <h4>Configuración numérica</h4>
+
+          <div>
+            <label>Mínimo</label>
+            <input
+              type="number"
+              value={field.props.min ?? ''}
+              onChange={(e) =>
+                onUpdate(id, {
+                  min: e.target.value === '' ? undefined : Number(e.target.value),
+                })
+              }
+            />
+          </div>
+
+          <div>
+            <label>Máximo</label>
+            <input
+              type="number"
+              value={field.props.max ?? ''}
+              onChange={(e) =>
+                onUpdate(id, {
+                  max: e.target.value === '' ? undefined : Number(e.target.value),
+                })
+              }
+            />
+          </div>
+        </div>
+      )}
+
+      {field.type === FieldTypes.DATE && (
+        <div style={{ marginTop: '12px' }}>
+          <h4>Configuración de fecha</h4>
+
+          <div>
+            <label>Fecha mínima</label>
+            <input
+              type="date"
+              value={field.props.minDate ?? ''}
+              onChange={(e) =>
+                onUpdate(id, { minDate: e.target.value || undefined })
+              }
+            />
+          </div>
+
+          <div>
+            <label>Fecha máxima</label>
+            <input
+              type="date"
+              value={field.props.maxDate ?? ''}
+              onChange={(e) =>
+                onUpdate(id, { maxDate: e.target.value || undefined })
+              }
+            />
+          </div>
+        </div>
+      )}
+
+      {field.type === FieldTypes.TEXT && (
+        <div style={{ marginTop: '12px' }}>
+          <h4>Configuración de texto</h4>
+
+          <div>
+            <label>Placeholder</label>
+            <input
+              type="text"
+              value={field.props.placeholder ?? ''}
+              onChange={(e) =>
+                onUpdate(id, { placeholder: e.target.value })
+              }
+            />
+          </div>
+
+          <div>
+            <label>Longitud máxima</label>
+            <input
+              type="number"
+              value={field.props.maxLength ?? ''}
+              onChange={(e) =>
+                onUpdate(id, {
+                  maxLength:
+                    e.target.value === '' ? undefined : Number(e.target.value),
+                })
+              }
+            />
+          </div>
+        </div>
+      )}
+
+      <div> //Boton de eliminar
         <button
         onClick={() => {
             const confirmed = window.confirm('¿Seguro que deseas eliminar este campo?');
             if (confirmed) {
-            onDelete(selectedField.id);
+            onDelete(id);
             }
         }}
         style={{

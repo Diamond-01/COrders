@@ -6,14 +6,15 @@ import { arrayMove } from '@dnd-kit/sortable';
 
 
 import { createField } from './domain/fields/FieldFactory'; //se importa la funcion createField
+import { Field } from './domain/fields';
 
 import FieldPalette from './components/FieldPalette';
 import Canvas from './components/Canvas';
 import FieldEditor from './components/FieldEditor';
 
 function App() { //todo Falta Integrar la logica de campos a App.tsx
-  const [fields, setFields] = useState<any[]>([]);
-  const [selectedField, setSelectedField] = useState<any>(null);
+  const [fields, setFields] = useState<Field[]>([]);
+  const [selectedField, setSelectedField] = useState<Field | null>(null);
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
@@ -43,13 +44,7 @@ function App() { //todo Falta Integrar la logica de campos a App.tsx
           ...prev,
           {
             ...newField,
-            id: Date.now().toString(),
-            label: baseField.label || newField.label,
-            props: {
-              ...newField.props,
-              label: baseField.label || newField.props.label,
-            },
-            order: prev.length
+            order: prev.length,
           }
         ]);
       } catch (error) {
@@ -59,47 +54,33 @@ function App() { //todo Falta Integrar la logica de campos a App.tsx
   };
 
   //Actualiza un campo
-const updateField = (id: string, updates: any) => {
-  setFields(prev => 
-    prev.map(f => {
-      if (f.id === id) {
-        const newLabel = updates.label !== undefined ? updates.label : f.label;
-        const newRequired = updates.required !== undefined ? updates.required : f.required;
-        
-        return {
-          ...f,
-          label: newLabel,
-          required: newRequired,
-          props: {
-            ...f.props,
-            label: newLabel,
-            required: newRequired,
+  const updateField = (id: string, updates: any) => {
+    setFields(prev =>
+      prev.map(f =>
+        f.id === id
+          ? {
+              ...f,
+              props: {
+                ...f.props,
+                ...updates,
+              },
+            }
+          : f
+      )
+    );
+
+    setSelectedField(prev =>
+      prev?.id === id
+        ? {
+            ...prev,
+            props: {
+              ...prev.props,
+              ...updates,
+            },
           }
-        };
-      }
-      return f;
-    })
-  );
-// Si el campo editado es el seleccionado, actualizarlo también
-  setSelectedField(prev => {
-    if (prev?.id === id) {
-      const newLabel = updates.label !== undefined ? updates.label : prev.label;
-      const newRequired = updates.required !== undefined ? updates.required : prev.required;
-      
-      return {
-        ...prev,
-        label: newLabel,
-        required: newRequired,
-        props: {
-          ...prev.props,
-          label: newLabel,
-          required: newRequired,
-        }
-      };
-    }
-    return prev;
-  });
-};
+        : prev
+    );
+  };
 
   const deleteField = (id: string) => {
     setFields(prev => prev.filter(f => f.id !== id));
@@ -119,7 +100,7 @@ const updateField = (id: string, updates: any) => {
         </div>
         
         <div style={{ width: '20%', borderLeft: '1px solid #ccc', padding: '10px' }}>
-          <FieldEditor selectedField={selectedField} onUpdate={updateField} onDelete={deleteField} />
+          <FieldEditor field={selectedField} onUpdate={updateField} onDelete={deleteField} />
         </div>
         {/* <button onClick={() => {
           console.log('📄 Campos actuales:', fields); // PRUEBAS

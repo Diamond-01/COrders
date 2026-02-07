@@ -25,6 +25,8 @@ export function createField(type: FieldTypes): Field {
         props: {
           label: 'Texto',
           required: false,
+          placeholder: '',
+          maxLength: 25,
         },
       };
 
@@ -36,6 +38,8 @@ export function createField(type: FieldTypes): Field {
         props: {
           label: 'Número',
           required: false,
+          min: undefined,
+          max: undefined,
         },
       };
 

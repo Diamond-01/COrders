@@ -6,16 +6,16 @@ import {
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import SortableField from './sortableField';
-import { BaseField } from '../domain/fields/BaseField';
+import { Field } from '../domain/fields';
 
-export default function Canvas({ 
-  fields, 
-  selectedField, 
-  setSelectedField 
-}: { 
-  fields: BaseField[];
-  selectedField: BaseField | null;
-  setSelectedField: (field: BaseField | null) => void;
+export default function Canvas({
+  fields,
+  selectedField,
+  setSelectedField,
+}: {
+  fields: Field[];
+  selectedField: Field | null;
+  setSelectedField: (field: Field | null) => void;
 }) {
   const { setNodeRef, isOver } = useDroppable({
     id: 'canvas-dropzone',
@@ -47,7 +47,7 @@ export default function Canvas({
         items={orderedFields.map((f) => f.id)}
         strategy={verticalListSortingStrategy}
       >
-        {fields.map((field) => (
+        {orderedFields.map((field) => (
           <SortableField
             key={field.id}
             field={field}

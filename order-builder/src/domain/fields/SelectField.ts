@@ -1,6 +1,7 @@
 // src/domain/fields/SelectField.ts
 
 import { BaseField, FieldTypes } from './BaseField';
+import { SelectFieldProps } from './FieldProps';
 
 // Definimos la estructura de las opciones
 export interface SelectOption {
@@ -9,7 +10,7 @@ export interface SelectOption {
 }
 
 // El campo selector tiene opciones
-export interface SelectField extends BaseField {
+export interface SelectField extends BaseField<SelectFieldProps> {
   type: FieldTypes.SELECT;
   props: {
     label: string;

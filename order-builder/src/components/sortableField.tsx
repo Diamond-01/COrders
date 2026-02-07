@@ -2,15 +2,15 @@
 
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import { BaseField } from '../domain/fields/BaseField';
+import { Field } from '../domain/fields';
 
 export default function SortableField({
   field,
   onSelect,
   isSelected
 }: {
-  field: BaseField;
-  onSelect: (field: BaseField | null) => void;
+  field: Field;
+  onSelect: (field: Field) => void;
   isSelected: boolean;
 }) {
   const {
@@ -51,7 +51,7 @@ export default function SortableField({
 
       {/* 🔹 SOLO CLICK */}
       <div onClick={() => onSelect(field)}>
-        {field.label || ( // 👈 Debe ser field.label, no field.props.label
+        {field.props.label || ( // 👈 Debe ser field.label, no field.props.label
           <span style={{ color: '#aaa', fontStyle: 'italic' }}>
             (Sin etiqueta)
           </span>

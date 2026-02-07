@@ -2,14 +2,10 @@
 
 import { FieldTypes } from './FieldTypes';
 
-export interface BaseField {
+export interface BaseField<TProps> {
   id: string;
   type: FieldTypes;
   order: number;
-  props: {
-    label: string;
-    required: boolean;
-    [key: string]: any;
-  };
+  props: TProps;
 }
 export { FieldTypes };
