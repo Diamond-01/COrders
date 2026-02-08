@@ -1,20 +1,32 @@
-import { useDraggable } from '@dnd-kit/core';
+// src/components/FieldPalette.tsx
 
-const FIELD_TYPES = [
-  { type: 'text', label: 'Texto' },
-  { type: 'number', label: 'Número' },
-  { type: 'date', label: 'Fecha' },
-  { type: 'select', label: 'Selector' },
+import { useDraggable } from '@dnd-kit/core';
+import { FieldTypes } from '../domain/fields';
+
+// Definimos tipo para los campos de la paleta
+interface PaletteField {
+  type: FieldTypes;
+  label: string;
+  //defaultProps?: Record<string, any>;
+}
+
+// Tipamos FIELD_TYPES
+const FIELD_TYPES: PaletteField[] = [
+  { type: FieldTypes.TEXT, label: 'Texto' },
+  { type: FieldTypes.NUMBER, label: 'Número' },
+  { type: FieldTypes.DATE, label: 'Fecha' },
+  { type: FieldTypes.SELECT, label: 'Selector' },
 ];
 
-function DraggableField({ field }) {
+// tipado a DraggableField
+function DraggableField({ field }: { field: PaletteField }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: field.type,
     data: {
-    source: 'palette',
-    type: field.type,
-    label: field.label,
-    defaultProps: field.defaultProps ?? {},
+      source: 'palette',
+      type: field.type,
+      label: field.label,
+      //defaultProps: field.defaultProps ?? {},
     },
   });
 

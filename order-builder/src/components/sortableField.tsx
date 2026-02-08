@@ -1,7 +1,18 @@
+// src/components/SortableField.tsx
+
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
+import { Field } from '../domain/fields';
 
-export default function SortableField({ field, onSelect, isSelected }) {
+export default function SortableField({
+  field,
+  onSelect,
+  isSelected
+}: {
+  field: Field;
+  onSelect: (field: Field) => void;
+  isSelected: boolean;
+}) {
   const {
     attributes,
     listeners,
@@ -20,6 +31,8 @@ export default function SortableField({ field, onSelect, isSelected }) {
   };
 
   return (
+
+
     <div ref={setNodeRef} style={style}>
       {/* 🔹 SOLO DRAG */}
       <div
@@ -38,10 +51,10 @@ export default function SortableField({ field, onSelect, isSelected }) {
 
       {/* 🔹 SOLO CLICK */}
       <div onClick={() => onSelect(field)}>
-        {field.props.label || (
-        <span style={{ color: '#aaa', fontStyle: 'italic' }}>
+        {field.props.label || ( // 👈 Debe ser field.label, no field.props.label
+          <span style={{ color: '#aaa', fontStyle: 'italic' }}>
             (Sin etiqueta)
-        </span>
+          </span>
         )}
       </div>
     </div>

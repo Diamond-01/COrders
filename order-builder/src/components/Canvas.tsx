@@ -1,11 +1,22 @@
+// src/components/Canvas.tsx
+
 import { useDroppable } from '@dnd-kit/core';
 import {
   SortableContext,
   verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
-import SortableField from './sortableField.jsx';
+import SortableField from './sortableField';
+import { Field } from '../domain/fields';
 
-export default function Canvas({ fields, selectedField, setSelectedField }) {
+export default function Canvas({
+  fields,
+  selectedField,
+  setSelectedField,
+}: {
+  fields: Field[];
+  selectedField: Field | null;
+  setSelectedField: (field: Field | null) => void;
+}) {
   const { setNodeRef, isOver } = useDroppable({
     id: 'canvas-dropzone',
   });
@@ -36,7 +47,7 @@ export default function Canvas({ fields, selectedField, setSelectedField }) {
         items={orderedFields.map((f) => f.id)}
         strategy={verticalListSortingStrategy}
       >
-        {fields.map((field) => (
+        {orderedFields.map((field) => (
           <SortableField
             key={field.id}
             field={field}
