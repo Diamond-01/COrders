@@ -1,0 +1,28 @@
+.field-editor {
+  padding: 10px;
+  border: 1px solid #ccc;
+}
+
+.field-editor__section {
+  margin-top: 12px;
+}
+
+.field-editor__option-row {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  margin-bottom: 6px;
+}
+
+.field-editor__delete-btn {
+  margin-top: 12px;
+  background: #c0392b;
+  color: #fff;
+  border: none;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.field-editor__delete-btn:hover {
+  opacity: 0.9;
+}

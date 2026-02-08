@@ -1,0 +1,27 @@
+.field-palette {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field-palette__title {
+  margin-bottom: 8px;
+}
+
+.palette-field {
+  padding: 8px;
+  border: 1px solid #ccc;
+  background: #f9f9f9;
+  cursor: grab;
+  user-select: none;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.palette-field:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.palette-field:active {
+  cursor: grabbing;
+}

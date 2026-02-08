@@ -1,0 +1,19 @@
+.canvas {
+  min-height: 300px;
+  padding: 10px;
+  border: 2px dashed #aaa;
+  transition: background-color 0.2s ease;
+}
+
+.canvas--over {
+  background-color: #eef;
+}
+
+.canvas__title {
+  margin-bottom: 10px;
+}
+
+.canvas__empty {
+  color: #777;
+  font-style: italic;
+}

@@ -1,5 +1,6 @@
 // src/components/FieldEditor.tsx
 import { Field, FieldTypes, SelectField } from '../domain/fields';
+import './FieldEditor.css'
 
 export default function FieldEditor({
   field,
@@ -18,7 +19,7 @@ export default function FieldEditor({
   const props = field.props;
 
   return (
-    <div style={{ padding: '10px', border: '1px solid #ccc' }}>
+    <div className='Field-editor'>
       <h3>Propiedades</h3>
 
       <p>
@@ -48,11 +49,11 @@ export default function FieldEditor({
         </label>
       </div>
       {field.type === FieldTypes.SELECT && (
-        <div style={{ marginTop: '12px' }}>
+        <div className='field-editor__section'>
           <h4>Opciones</h4>
 
           {(field as SelectField).props.options.map((opt, index) => (
-            <div key={index} style={{ display: 'flex', gap: '6px' }}>
+            <div key={index} className='field-editor__option-row'>
               <input
                 type="text"
                 value={opt.label}
@@ -94,7 +95,7 @@ export default function FieldEditor({
       )}
 
       {field.type === FieldTypes.NUMBER && (
-        <div style={{ marginTop: '12px' }}>
+        <div className='fiel-editor__section'>
           <h4>Configuración numérica</h4>
 
           <div>
@@ -126,7 +127,7 @@ export default function FieldEditor({
       )}
 
       {field.type === FieldTypes.DATE && (
-        <div style={{ marginTop: '12px' }}>
+        <div className='fiel-editor__section'>
           <h4>Configuración de fecha</h4>
 
           <div>
@@ -154,7 +155,7 @@ export default function FieldEditor({
       )}
 
       {field.type === FieldTypes.TEXT && (
-        <div style={{ marginTop: '12px' }}>
+        <div className='fiel-editor__section'>
           <h4>Configuración de texto</h4>
 
           <div>
@@ -192,14 +193,7 @@ export default function FieldEditor({
             onDelete(id);
             }
         }}
-        style={{
-            marginTop: '12px',
-            background: '#c0392b',
-            color: '#fff',
-            border: 'none',
-            padding: '6px 10px',
-            cursor: 'pointer',
-        }}
+        className='field-editor__delete-btn'
         >
         Eliminar campo
         </button>

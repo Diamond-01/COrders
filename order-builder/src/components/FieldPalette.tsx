@@ -2,6 +2,7 @@
 
 import { useDraggable } from '@dnd-kit/core';
 import { FieldTypes } from '../domain/fields';
+import './FieldPalette.css';
 
 // Definimos tipo para los campos de la paleta
 interface PaletteField {
@@ -31,18 +32,13 @@ function DraggableField({ field }: { field: PaletteField }) {
   });
 
   const style = {
-    padding: '8px',
-    border: '1px solid #ccc',
-    marginBottom: '6px',
-    cursor: 'grab',
-    background: '#f9f9f9',
     transform: transform
       ? `translate(${transform.x}px, ${transform.y}px)`
       : undefined,
   };
 
   return (
-    <div ref={setNodeRef} style={style} {...listeners} {...attributes}>
+    <div ref={setNodeRef} style={style} className='palette-field' {...listeners} {...attributes}>
       {field.label}
     </div>
   );
@@ -50,8 +46,8 @@ function DraggableField({ field }: { field: PaletteField }) {
 
 export default function FieldPalette() {
   return (
-    <div>
-      <h3>Campos</h3>
+    <div className='field-palette'>
+      <h3 className='field-palette__title'>Campos</h3>
       {FIELD_TYPES.map((field) => (
         <DraggableField key={field.type} field={field} />
       ))}

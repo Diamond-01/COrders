@@ -7,6 +7,7 @@ import {
 } from '@dnd-kit/sortable';
 import SortableField from './sortableField';
 import { Field } from '../domain/fields';
+import './Canvas.css';
 
 export default function Canvas({
   fields,
@@ -28,17 +29,12 @@ export default function Canvas({
   return (
     <div
       ref={setNodeRef}
-      style={{
-        minHeight: '300px',
-        padding: '10px',
-        border: '2px dashed #aaa',
-        background: isOver ? '#eef' : 'transparent',
-      }}
+      className={`canvas ${isOver ? 'canvas--over' : ''}`}
     >
-      <h3>Orden de Pedido</h3>
+      <h3 className="canvas__title">Orden de Pedido</h3>
 
       {fields.length === 0 && (
-        <p style={{ color: '#777' }}>
+        <p className='canvas__empty'>
           Arrastra campos aquí para construir tu orden
         </p>
       )}

@@ -3,6 +3,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Field } from '../domain/fields';
+import './sortableField.css';
 
 export default function SortableField({
   field,
@@ -24,35 +25,23 @@ export default function SortableField({
   const style = {
     transform: CSS.Transform.toString(transform),
     transition,
-    padding: '8px',
-    border: isSelected ? '2px solid #3498db' : '1px solid #555',
-    marginBottom: '6px',
-    background: '#fff',
   };
 
   return (
-
-
-    <div ref={setNodeRef} style={style}>
+    <div ref={setNodeRef} style={style} className={`sortable-field ${isSelected ? 'sortable-field--selected' : ''}`}>
       {/* 🔹 SOLO DRAG */}
       <div
         {...attributes}
         {...listeners}
-        style={{
-          cursor: 'grab',
-          background: '#eee',
-          padding: '4px',
-          marginBottom: '4px',
-          fontSize: '12px',
-        }}
+        className='sortable-field__drag-handle'
       >
         ☰ mover
       </div>
 
       {/* 🔹 SOLO CLICK */}
-      <div onClick={() => onSelect(field)}>
+      <div className='sortable-field__label' onClick={() => onSelect(field)}>
         {field.props.label || ( // 👈 Debe ser field.label, no field.props.label
-          <span style={{ color: '#aaa', fontStyle: 'italic' }}>
+          <span className='sortable-field__label--empty'>
             (Sin etiqueta)
           </span>
         )}

@@ -1,0 +1,29 @@
+.sortable-field {
+  padding: 8px;
+  margin-bottom: 6px;
+  background: #fff;
+  border: 1px solid #555;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.sortable-field--selected {
+  border: 2px solid #3498db;
+}
+
+.sortable-field__drag-handle {
+  cursor: grab;
+  background: #eee;
+  padding: 4px;
+  margin-bottom: 4px;
+  font-size: 12px;
+  user-select: none;
+}
+
+.sortable-field__label {
+  cursor: pointer;
+}
+
+.sortable-field__label--empty {
+  color: #aaa;
+  font-style: italic;
+}
