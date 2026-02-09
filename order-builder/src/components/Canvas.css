@@ -1,19 +1,40 @@
 .canvas {
   min-height: 300px;
-  padding: 10px;
-  border: 2px dashed #aaa;
-  transition: background-color 0.2s ease;
+  border: 2px solid hsla(160, 84%, 39%, 0.50);
+  background-color: #111827;
+  backdrop-Filter: blur (8px);
+  display: 'flex';
+  flex-direction: 'column';
+  gap: '12px';
+  padding: 24px;
+
 }
 
 .canvas--over {
-  background-color: #eef;
+  background-color: rgb(26, 32, 44);
 }
 
 .canvas__title {
   margin-bottom: 10px;
+
+  display: flex;
+  align-Items: center;
+  gap: 10px;
+  font-Family: Inter, sans-serif;
+  font-weight: 700;
+  /* Negrita fuerte */
+  letter-spacing: -0.02em;
+  /* Un poco más junta para que se vea moderna */
+  color: #ffffff;
+  font-Weight: 700;
+  font-Size: 35px;
+  margin-Bottom: 10px;
 }
 
 .canvas__empty {
-  color: #777;
-  font-style: italic;
+  color: #9CA3AF;
+  font-Style: italic;
+  font-Size: 14px;
+  margin-Bottom: 25px;
+
 }

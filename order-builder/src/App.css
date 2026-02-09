@@ -7,21 +7,21 @@
 
 .app-sidebar {
   padding: 10px;
-  background: #fff;
+  
 }
 
 .app-sidebar--left {
   width: 20%;
-  border-right: 1px solid #ccc;
+  
 }
 
 .app-sidebar--right {
   width: 20%;
-  border-left: 1px solid #ccc;
+  
 }
 
 .app-canvas {
   width: 60%;
   padding: 10px;
-  background: #fafafa;
+  
 }
