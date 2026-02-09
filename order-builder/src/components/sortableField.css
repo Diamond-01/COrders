@@ -1,29 +1,43 @@
+/* recuadro oscuro */
 .sortable-field {
-  padding: 8px;
-  margin-bottom: 6px;
-  background: #fff;
-  border: 1px solid #555;
+  padding: 16px;
+  margin-bottom: 12px;
+  background-color: #1a202c; 
+  border: 1px solid #374151; 
+  border-radius: 8px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+/*borde a verde */
+.sortable-field--selected {
+  border: 1px solid #10b981 !important; /* Verde esmeralda */
+  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); /* Resplandor neón */
 }
 
-.sortable-field--selected {
-  border: 2px solid #3498db;
-}
 
 .sortable-field__drag-handle {
   cursor: grab;
-  background: #eee;
-  padding: 4px;
-  margin-bottom: 4px;
-  font-size: 12px;
+  color: #6B7280;
+  font-size: 11px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   user-select: none;
 }
 
+
 .sortable-field__label {
   cursor: pointer;
+  color: #FFFFFF;
+  font-size: 15px;
+  font-weight: 500;
+  text-transform: uppercase; /* Para que se vea como en tu imagen */
 }
 
 .sortable-field__label--empty {
-  color: #aaa;
+  color: #4B5563;
   font-style: italic;
 }
