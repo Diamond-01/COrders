@@ -19,7 +19,7 @@ export default function FieldEditor({
   const props = field.props;
 
   return (
-    <div className='Field-editor'>
+    <div className='Fiel-editor'>
       <h3>Propiedades</h3>
 
       <p>
@@ -38,7 +38,7 @@ export default function FieldEditor({
       </div>
       <div>
         <label>
-          <input
+          <input 
             type="checkbox"
             checked={props.required}
             onChange={(e) =>
@@ -49,7 +49,7 @@ export default function FieldEditor({
         </label>
       </div>
       {field.type === FieldTypes.SELECT && (
-        <div className='field-editor__section'>
+        <div className='fiel-editor__section'>
           <h4>Opciones</h4>
 
           {(field as SelectField).props.options.map((opt, index) => (

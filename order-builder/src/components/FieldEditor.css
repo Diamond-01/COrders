@@ -1,28 +1,133 @@
-.field-editor {
+.Fiel-editor {
+  padding: 24px;
+  background-Color: #1F2937;
+  height: 100vh;
+  border-Left: 1px solid rgba(255, 255, 255, 0.1);
+  color: #FFFFFF;
+
+}
+
+.Fiel-editor h3 {
+  margin-bottom: 12px;
+  color: #FFFFFF;
+  font-size: 25px;
+
+}
+
+.Fiel-editor strong {
+  margin-bottom: 6px;
+  color: #10B981;
+
+}
+
+.Fiel-editor label {
+  display: block;
+  margin-bottom: 6px;
+  color: #9CA3AF;
+  font-size: 14px;
+
+}
+
+
+.Fiel-editor input[type="text"],
+.Fiel-editor select {
+  width: 100%;
   padding: 10px;
-  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 4px;
+  display: block;
+
 }
 
-.field-editor__section {
-  margin-top: 12px;
+
+.Fiel-editor input[type="checkbox"] {
+  width: auto;
+  margin-right: 8px;
+  cursor: pointer;
+  vertical-align: middle;
+
 }
 
-.field-editor__option-row {
+/* Asegura que el contenedor del label no fuerce saltos de línea */
+.Fiel-editor label {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #9CA3AF;
+  cursor: pointer;
+}
+
+.Fiel-editor input {
+  width: 100%;
+  padding: 10px;
+  border-Radius: 8px;
+  border: 1px solid #374151;
+  background-Color: #111827;
+  color: #FFFFFF;
+  box-Sizing: border-box;
+  outline: none;
+  font-Size: 14px;
+  margin-bottom: 4px;
+}
+
+.fiel-editor__section {
+  width: 100%;
+  padding: 10px;
+  border-Radius: 8px;
+  border: 1px solid #465137;
+
+  color: #FFFFFF;
+  box-Sizing: border-box;
+  outline: none;
+  font-Size: 14px;
+  
+}
+
+.fiel-editor__option-row {
   display: flex;
   gap: 6px;
-  align-items: center;
   margin-bottom: 6px;
 }
 
 .field-editor__delete-btn {
-  margin-top: 12px;
-  background: #c0392b;
-  color: #fff;
-  border: none;
-  padding: 6px 10px;
+    
+  margin-top: 25px;
+  padding: 10px 20px;
+  width: 100%;
+    
+  background-color: transparent; 
+  color: #EF4444; 
+  border: 1px solid #bd1b1b; 
+    
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
+    
+    
+  transition: all 0.3s ease;
+  text-transform: uppercase;
 }
 
+/* Estado cuando pones el cursor encima */
 .field-editor__delete-btn:hover {
-  opacity: 0.9;
+    background-color: #c0392b; /* Aquí se pone rojo el fondo */
+    color: #ffffff; /* El texto cambia a blanco para que resalte */
+}
+
+.fiel-editor h4 {
+  margin-bottom: 6px;
+  color: #FFFFFF
+}
+
+.fiel-editor__section button, 
+.fiel-editor__section .delete-option-btn {
+    margin-bottom: 20px; /* Espacio hacia abajo (separar del input) */
+    display: block;      /* Asegura que el espacio se aplique correctamente */
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 2px 8px;
+    transition: all 0.2s ease;
 }
