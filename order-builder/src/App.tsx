@@ -10,6 +10,10 @@ import FieldPalette from './components/FieldPalette';
 import Canvas from './components/Canvas';
 import FieldEditor from './components/FieldEditor';
 
+import { buildOrderTemplate } from './domain/orderTemplate/buildOrderTemplate';
+import { validateOrderTemplate } from './domain/orderTemplate/validateOrderTemplate';
+
+const [templateErrors, setTemplateErrors] = useState<string[]>([]);
 
 import './App.css';
 
@@ -66,6 +70,22 @@ function App() {
     setSelectedField(null);
   };
 
+  const handleSaveTemplate = () =>{
+    const template = buildOrderTemplate(fields);
+
+    const errors = validateOrderTemplate(template);
+
+    if (errors.length > 0) {
+      setTemplateErrors(errors);
+      return;
+    }
+
+    setTemplateErrors([]);
+
+    // 🔜 Aquí irá el fetch al backend
+    console.log('Plantilla lista para enviar:', template);
+  }
+
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="app-layout">
@@ -74,6 +94,22 @@ function App() {
         </aside>
 
         <main className="app-canvas">
+          <div className='app-canvas__actions'>
+            <button className='app-save-button' onClick={handleSaveTemplate}>
+              💾 Guardar plantilla
+            </button>
+            {templateErrors.length > 0 && (
+              <div className="app-errors">
+                <h4>Errores de la plantilla</h4>
+                <ul>
+                  {templateErrors.map((err, i) => (
+                    <li key={i}>{err}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+          </div>
           <Canvas
             fields={fields}
             selectedField={selectedField}
