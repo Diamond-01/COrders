@@ -8,6 +8,9 @@
   margin-bottom: 12px;
   color: #FFFFFF;
   font-size: 25px;
+  font-weight: 700;
+  letter-Spacing: 1px;
+  padding: 20px;
 }
 
 .field-palette__title {
@@ -15,9 +18,9 @@
 }
 
 .palette-field {
-  padding: 8px 16px;
+  padding: 8px 21px;
   border: 1px solid #4b5563;
-  background: #FFFFFF12;
+  background: #111827;
   cursor: grab;
   user-select: none;
   transition: background 0.2s ease, border-color 0.2s ease;
@@ -26,8 +29,12 @@
   color: #FFFFFF;
   font-family: Arial, sans-serif;
   text-transform: uppercase;
+  margin: 0px 0px 9px;
+  width: 75%;
+  max-width: 180px;
 
-  
+
+
 }
 
 
@@ -39,4 +46,33 @@
 
 .palette-field:active {
   cursor: grabbing;
+}
+
+.field-palette__header {
+  display: flex;
+  flex-direction: column;
+  /* Cambia a 'row' si quieres el logo al lado del texto */
+  align-items: flex-start;
+  padding: 10px;
+  margin-bottom: 15px;
+  
+  
+}
+
+
+/* Tamaño del logo*/
+.field-palette__logo {
+  width: 110%;
+  max-width: 300px;
+  height: auto;
+  margin-bottom: 10px;
+  object-fit: contain;
+}
+
+.field-palette__title {
+  margin: 0;
+  color: #ffffff;
+  font-size: 1.5rem;
+  text-transform: capitalize;
+  /* Para que no sea todo mayúsculas si no quieres */
 }

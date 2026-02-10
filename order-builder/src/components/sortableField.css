@@ -1,43 +1,56 @@
-/* recuadro oscuro */
+/* Contenedor principal del campo en el canvas */
 .sortable-field {
   padding: 16px;
   margin-bottom: 12px;
-  background-color: #1a202c; 
+  background-color: #242c3b; /* Gris muy oscuro casi negro */
   border: 1px solid #374151; 
-  border-radius: 8px;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  border-radius: 10px;
+  transition: all 0.2s ease;
   cursor: default;
+  display: flex;
+  flex-direction: column;
 }
-/*borde a verde */
+
+/* Estado seleccionado con el verde neón */
 .sortable-field--selected {
-  border: 1px solid #10b981 !important; /* Verde esmeralda */
-  box-shadow: 0 0 10px rgba(16, 185, 129, 0.3); /* Resplandor neón */
+  border: 1px solid #10b981 !important; 
+  box-shadow: 0 0 12px rgba(16, 185, 129, 0.2);
 }
 
-
+/* El botón de MOVER (ahora mucho más fino) */
 .sortable-field__drag-handle {
+  display: block;
   cursor: grab;
-  color: #6B7280;
+  background: RGBA(255, 255, 255, 0.05); /* Gris oscuro que combina con el fondo */
+  color: rgba(107, 114, 128); /* Texto gris claro */
   font-size: 11px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 600;
   letter-spacing: 1px;
-  margin-bottom: 8px;
-  padding-bottom: 4px;
+  margin-bottom: 4px;
+  padding: 4px;
+  border: 1px solid #374151; /* Borde sutil */
+  align-items: center;
+  gap: 4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  user-select: none;
 }
 
+.sortable-field__drag-handle:active {
+  cursor: grabbing;
+}
 
+/* El texto de la etiqueta */
 .sortable-field__label {
   cursor: pointer;
   color: #FFFFFF;
-  font-size: 15px;
-  font-weight: 500;
-  text-transform: uppercase; /* Para que se vea como en tu imagen */
+  font-size: 14px;
+  
+  text-transform: uppercase;
+  padding: 4px 0;
 }
 
 .sortable-field__label--empty {
   color: #4B5563;
   font-style: italic;
+  font-size: 13px;
 }

@@ -1,8 +1,10 @@
 // src/components/FieldPalette.tsx
+import logoFinal from '../assets/LOGO_FINAL.png';
 
 import { useDraggable } from '@dnd-kit/core';
 import { FieldTypes } from '../domain/fields';
 import './FieldPalette.css';
+
 
 // Definimos tipo para los campos de la paleta
 interface PaletteField {
@@ -44,10 +46,19 @@ function DraggableField({ field }: { field: PaletteField }) {
   );
 }
 
+
+
 export default function FieldPalette() {
   return (
-    <div className='field-palette'>
-      <h3 className='field-palette__title'>Campos</h3>
+    <div className="field-palette">
+      <div className="field-pallette__header">
+        <img
+          src={logoFinal}
+          alt="LOGO PROYECTO"
+          className="field-palette__logo"
+        />
+        <h3 className="field-palette__title">Campos</h3>
+      </div>
       {FIELD_TYPES.map((field) => (
         <DraggableField key={field.type} field={field} />
       ))}

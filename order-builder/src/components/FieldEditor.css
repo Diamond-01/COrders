@@ -8,6 +8,8 @@
 }
 
  p {
+  display: flex;
+  align-items: center;;
   color: #9CA3AF;
   font-Style: Arial, sans-serif;
   font-Weight: 400;
