@@ -13,11 +13,10 @@ import FieldEditor from './components/FieldEditor';
 import { buildOrderTemplate } from './domain/orderTemplate/buildOrderTemplate';
 import { validateOrderTemplate } from './domain/orderTemplate/validateOrderTemplate';
 
-const [templateErrors, setTemplateErrors] = useState<string[]>([]);
-
 import './App.css';
 
 function App() {
+  const [templateErrors, setTemplateErrors] = useState<string[]>([]);
   const [fields, setFields] = useState<Field[]>([]);
   const [selectedField, setSelectedField] = useState<Field | null>(null);
 
