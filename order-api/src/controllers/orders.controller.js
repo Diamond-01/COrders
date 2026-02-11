@@ -2,18 +2,21 @@ const ordersService = require('../services/orders.service');
 
 const createOrder = async (req, res) => { 
     try {
+        console.log('BODY RECIBIDO:', req.body);
+
         const newOrder = await ordersService.createOrder(req.body); 
         res.status(201).json(newOrder);
     } catch (error) {
-        // Diferenciamos errores de validación vs errores de base de datos
+        console.error('ERROR REAL:', error.message);
+
         if (error.message.includes('obligatorio') || error.message.includes('inválido')) {
             res.status(400).json({ error: "INVALID_JSON", message: error.message });
         } else {
-            console.error(error); 
             res.status(500).json({ error: "DB_ERROR", message: "Error al guardar en base de datos" });
         }
     }
 };
+
 
 const getOrders = async (req, res) => { 
     try {

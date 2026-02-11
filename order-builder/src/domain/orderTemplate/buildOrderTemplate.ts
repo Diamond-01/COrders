@@ -16,7 +16,7 @@ export function buildOrderTemplate(
   return {
     order: {
       id: meta?.id ?? crypto.randomUUID(),
-      name: meta?.name ?? 'Plantilla sin nombre',
+      name: meta?.name ?? '',
       description: meta?.description ?? '',
       createdAt: now,
       updatedAt: now,

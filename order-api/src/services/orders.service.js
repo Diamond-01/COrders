@@ -2,30 +2,28 @@ const crypto = require('crypto');
 const { validateOrderStructure } = require('../utils/validation.js');
 const OrderModel = require('../models/order.model');
 
-const createOrder = async (orderData) => {
-    // 1. Validar estructura estricta
-    validateOrderStructure(orderData); 
+const createOrder = async (data) => {
 
-    // 2. Preparar datos según corrección
+    // Validaciones mínimas backend
+    if (!data.name || data.name.trim() === '') {
+        throw new Error('El nombre de la plantilla es obligatorio');
+    }
+
+    if (!Array.isArray(data.fields)) {
+        throw new Error('Los fields son obligatorios y deben ser un arreglo');
+    }
+
     const newOrder = {
-        id: crypto.randomUUID(),
-        title: orderData.title || null,
-
-        schema: {
-            type: 'dynamic-order',
-            version: '1.0',
-            fields: orderData.fields,
-            metadata: {
-            created_by: 'system',
-            environment: process.env.NODE_ENV || 'development'
-            }
-        },
-        createdAt: new Date().toISOString()
+        id: data.id || crypto.randomUUID(),
+        title: data.name,
+        description: data.description || '',
+        schema: data, // guardamos TODO el contrato completo
+        createdAt: data.createdAt || new Date().toISOString()
     };
 
-    // 3. Guardar
     return await OrderModel.save(newOrder);
 };
+
 
 const getAllOrders = async () => {
     return await OrderModel.findAll();

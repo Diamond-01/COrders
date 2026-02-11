@@ -16,6 +16,8 @@ import { validateOrderTemplate } from './domain/orderTemplate/validateOrderTempl
 import './App.css';
 
 function App() {
+  const [templateName, setTemplateName] = useState('');
+  const [templateDescription, setTemplateDescription] = useState('');
   const [templateErrors, setTemplateErrors] = useState<string[]>([]);
   const [fields, setFields] = useState<Field[]>([]);
   const [selectedField, setSelectedField] = useState<Field | null>(null);
@@ -69,8 +71,16 @@ function App() {
     setSelectedField(null);
   };
 
-  const handleSaveTemplate = () =>{
-    const template = buildOrderTemplate(fields);
+  const handleSaveTemplate = async () => {
+    if (!templateName.trim()) {
+      setTemplateErrors(['La plantilla debe tener un nombre']);
+      return;
+    }
+
+    const template = buildOrderTemplate(fields, {
+      name: templateName,
+      description: templateDescription,
+    });
 
     const errors = validateOrderTemplate(template);
 
@@ -81,9 +91,28 @@ function App() {
 
     setTemplateErrors([]);
 
-    // 🔜 Aquí irá el fetch al backend
-    console.log('Plantilla lista para enviar:', template);
-  }
+    try {
+      const response = await fetch('http://localhost:3000/api/orders', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(template.order),
+      });
+
+      if (!response.ok) {
+        throw new Error('Error al guardar en el servidor');
+      }
+
+      const data = await response.json();
+
+      console.log('✅ Guardado correctamente:', data);
+      alert('Plantilla guardada correctamente 🎉');
+    } catch (error) {
+      console.error('❌ Error:', error);
+      alert('Error al conectar con el servidor');
+    }
+  };
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
@@ -108,6 +137,25 @@ function App() {
               </div>
             )}
 
+          </div>
+
+          <div style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
+            <h3>Propiedades de la plantilla</h3>
+
+            <input
+              type="text"
+              placeholder="Nombre de la plantilla"
+              value={templateName}
+              onChange={(e) => setTemplateName(e.target.value)}
+              style={{ display: 'block', marginBottom: '0.5rem', width: '100%' }}
+            />
+
+            <textarea
+              placeholder="Descripción"
+              value={templateDescription}
+              onChange={(e) => setTemplateDescription(e.target.value)}
+              style={{ display: 'block', width: '100%' }}
+            />
           </div>
           <Canvas
             fields={fields}

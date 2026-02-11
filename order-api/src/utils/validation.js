@@ -2,8 +2,8 @@ const VALID_TYPES = ['text', 'number', 'date', 'select'];
 
 const validateOrderStructure = (orderData) => {
     // 1. Validar el título
-    if (!orderData.title || typeof orderData.title !== 'string') {
-        throw new Error("El campo 'title' es obligatorio y debe ser texto");
+    if (!orderData.name || typeof orderData.name !== 'string') {
+        throw new Error("El campo 'name' es obligatorio y debe ser texto");
     }
 
     // 2. Validar array fields

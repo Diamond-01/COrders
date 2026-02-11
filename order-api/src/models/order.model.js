@@ -2,20 +2,24 @@ const pool = require('../config/db');
 
 const save = async (orderData) => {
     const query = `
-        INSERT INTO orders (id, title, schema, created_at) 
-        VALUES ($1, $2, $3, $4) 
+        INSERT INTO orders (id, title, description, schema, created_at, updated_at) 
+        VALUES ($1, $2, $3, $4, $5, $6) 
         RETURNING *
     `;
+
     const values = [
         orderData.id,
         orderData.title,
+        orderData.description,
         JSON.stringify(orderData.schema),
+        orderData.createdAt,
         orderData.createdAt
     ];
 
     const result = await pool.query(query, values);
     return result.rows[0];
 };
+
 
 const findAll = async () => {
     const query = 'SELECT * FROM orders ORDER BY created_at DESC';
