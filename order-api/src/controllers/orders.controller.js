@@ -44,4 +44,30 @@ const getOrderById = async (req, res) => {
     }
 };
 
-module.exports = { createOrder, getOrders, getOrderById };
+const updateOrder = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        console.log('ID A ACTUALIZAR:', id);
+        console.log('BODY RECIBIDO:', req.body);
+
+        const updatedOrder = await ordersService.updateOrder(id, req.body);
+
+        if (!updatedOrder) {
+            return res.status(404).json({ message: 'Orden no encontrada' });
+        }
+
+        res.json(updatedOrder);
+
+    } catch (error) {
+        console.error('ERROR REAL:', error.message);
+
+        if (error.message.includes('obligatorio') || error.message.includes('inválido')) {
+            res.status(400).json({ error: "INVALID_JSON", message: error.message });
+        } else {
+            res.status(500).json({ error: "DB_ERROR", message: "Error al actualizar en base de datos" });
+        }
+    }
+};
+
+module.exports = { createOrder, getOrders, getOrderById, updateOrder };

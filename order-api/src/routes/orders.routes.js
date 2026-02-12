@@ -8,4 +8,6 @@ router.get('/', ordersController.getOrders);
 // Los dos puntos : indican que "id" es variable
 router.get('/:id', ordersController.getOrderById); 
 
+router.put('/:id', ordersController.updateOrder);
+
 module.exports = router;

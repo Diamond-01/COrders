@@ -20,6 +20,28 @@ const save = async (orderData) => {
     return result.rows[0];
 };
 
+const update = async (id, orderData) => {
+    const query = `
+        UPDATE orders
+        SET title = $1,
+            description = $2,
+            schema = $3,
+            updated_at = NOW()
+        WHERE id = $4
+        RETURNING *
+    `;
+
+    const values = [
+        orderData.title,
+        orderData.description,
+        JSON.stringify(orderData.schema),
+        id
+    ];
+
+    const result = await pool.query(query, values);
+
+    return result.rows[0];
+};
 
 const findAll = async () => {
     const query = 'SELECT * FROM orders ORDER BY created_at DESC';
@@ -33,4 +55,4 @@ const findById = async (id) => {
     return result.rows[0];
 };
 
-module.exports = { save, findAll, findById };
+module.exports = { save, findAll, findById, update };

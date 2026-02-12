@@ -1,5 +1,5 @@
 // src/App.tsx
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { DndContext } from '@dnd-kit/core';
 import { arrayMove } from '@dnd-kit/sortable';
 
@@ -15,12 +15,30 @@ import { validateOrderTemplate } from '../domain/orderTemplate/validateOrderTemp
 
 import './BuilderPage.css';
 
-function BuilderPage() {
+interface BuilderPageProps{
+  initialTemplate?: any;
+  clearEditing?: ()=>void;
+}
+
+function BuilderPage({ initialTemplate, clearEditing}: BuilderPageProps) {
+  
   const [templateName, setTemplateName] = useState('');
   const [templateDescription, setTemplateDescription] = useState('');
   const [templateErrors, setTemplateErrors] = useState<string[]>([]);
   const [fields, setFields] = useState<Field[]>([]);
   const [selectedField, setSelectedField] = useState<Field | null>(null);
+  const [templateId, setTemplateId] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!initialTemplate) return;
+
+    console.log("InitialTemplate recibido", initialTemplate)
+
+    setTemplateId(initialTemplate.id || null);
+    setTemplateName(initialTemplate.title || '');
+    setTemplateDescription(initialTemplate.description || '');
+    setFields(initialTemplate.schema.fields || []);
+  }, [initialTemplate]);
 
   const handleDragEnd = (event: any) => {
     const { active, over } = event;
@@ -92,8 +110,16 @@ function BuilderPage() {
     setTemplateErrors([]);
 
     try {
-      const response = await fetch('http://localhost:3000/api/orders', {
-        method: 'POST',
+      const isEditing = !!templateId;
+
+      const url = isEditing
+        ? `http://localhost:3000/api/orders/${templateId}`
+        : 'http://localhost:3000/api/orders';
+
+      const method = isEditing ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -107,7 +133,11 @@ function BuilderPage() {
       const data = await response.json();
 
       console.log('✅ Guardado correctamente:', data);
-      alert('Plantilla guardada correctamente 🎉');
+      alert(
+        isEditing
+        ? 'Plantilla actualizada correctamente ✔'
+        : 'Plantilla guardada correctamente 🎉'
+      );
     } catch (error) {
       console.error('❌ Error:', error);
       alert('Error al conectar con el servidor');

@@ -8,7 +8,11 @@ interface Template {
   schema: any;
 }
 
-export default function TemplatesPage() {
+interface Props{
+  onEditTemplate: (template: Template) => void;
+}
+
+export default function TemplatesPage({onEditTemplate}: Props) {
   const [useMode, setUseMode] = useState(false);
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selected, setSelected] = useState<Template | null>(null);
@@ -66,7 +70,7 @@ export default function TemplatesPage() {
                 Usar plantilla
               </button>
 
-              <button>
+              <button onClick={()=> selected && onEditTemplate(selected)}>
                 Editar plantilla
               </button>
             </div>
