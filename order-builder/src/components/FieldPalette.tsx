@@ -1,5 +1,4 @@
 // src/components/FieldPalette.tsx
-import logoFinal from '../assets/LOGO_FINAL.png';
 
 import { useDraggable } from '@dnd-kit/core';
 import { FieldTypes } from '../domain/fields';
@@ -52,11 +51,6 @@ export default function FieldPalette() {
   return (
     <div className="field-palette">
       <div className="field-pallette__header">
-        <img
-          src={logoFinal}
-          alt="LOGO PROYECTO"
-          className="field-palette__logo"
-        />
         <h3 className="field-palette__title">Campos</h3>
       </div>
       {FIELD_TYPES.map((field) => (

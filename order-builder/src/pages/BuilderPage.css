@@ -1,0 +1,46 @@
+/* src/App.css */
+
+.app-layout {
+  display: flex;
+  height: 100vh;
+}
+
+.app-sidebar {
+  padding: 10px;
+  
+}
+
+.app-sidebar--left {
+  width: 20%;
+  
+}
+
+.app-sidebar--right {
+  width: 20%;
+  
+}
+
+.app-canvas {
+  width: 60%;
+  padding: 10px;
+  
+}
+
+.app-canvas__actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.app-save-button {
+  padding: 6px 12px;
+  background-color: #2ecc71;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.app-save-button:hover {
+  background-color: #27ae60;
+}
