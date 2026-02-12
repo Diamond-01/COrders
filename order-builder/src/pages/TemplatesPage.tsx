@@ -17,11 +17,44 @@ export default function TemplatesPage({onEditTemplate}: Props) {
   const [templates, setTemplates] = useState<Template[]>([]);
   const [selected, setSelected] = useState<Template | null>(null);
 
-  useEffect(() => {
+  const handleDelete = async (id: string) => {
+    const confirmDelete = window.confirm('¿Seguro que deseas eliminar esta plantilla?');
+
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`http://localhost:3000/api/orders/${id}`, {
+        method: 'DELETE'
+      });
+
+      if (!response.ok) {
+        throw new Error('Error eliminando');
+      }
+
+      // Si la eliminada era la seleccionada, limpiar panel derecho
+      if (selected?.id === id) {
+        setSelected(null);
+        setUseMode(false);
+      }
+
+      // Recargar lista
+      fetchTemplates();
+
+    } catch (error) {
+      console.error('Error eliminando:', error);
+      alert('Error al eliminar la plantilla');
+    }
+  };
+
+  const fetchTemplates = () => {
     fetch('http://localhost:3000/api/orders')
       .then(res => res.json())
       .then(data => setTemplates(data))
       .catch(err => console.error(err));
+  };
+
+  useEffect(() => {
+    fetchTemplates();
   }, []);
 
   return (
@@ -73,6 +106,19 @@ export default function TemplatesPage({onEditTemplate}: Props) {
               <button onClick={()=> selected && onEditTemplate(selected)}>
                 Editar plantilla
               </button>
+              <button
+                style={{
+                  backgroundColor: '#ff4d4f',
+                  marginTop: '2rem',
+                  marginLeft: '1rem',
+                  color: 'white',
+                  cursor: 'pointer'
+                }}
+                onClick={() => handleDelete(selected.id)}
+              >
+                🗑 Eliminar plantilla
+              </button>
+
             </div>
           </>
         )}

@@ -70,4 +70,22 @@ const updateOrder = async (req, res) => {
     }
 };
 
-module.exports = { createOrder, getOrders, getOrderById, updateOrder };
+const deleteOrder = async (req, res) => {
+    try {
+        const { id } = req.params;
+
+        const deleted = await ordersService.deleteOrder(id);
+
+        if (!deleted) {
+            return res.status(404).json({ message: 'Orden no encontrada' });
+        }
+
+        res.json({ message: 'Orden eliminada correctamente' });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "DB_ERROR", message: "Error al eliminar" });
+    }
+};
+
+module.exports = { createOrder, getOrders, getOrderById, updateOrder, deleteOrder };

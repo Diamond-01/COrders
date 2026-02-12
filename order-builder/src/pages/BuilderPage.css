@@ -44,3 +44,18 @@
 .app-save-button:hover {
   background-color: #27ae60;
 }
+
+.app-cancel-button {
+  background-color: #ccc;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+}
+
+.app-cancel-button:hover {
+  background-color: #aaa;
+}
+
+.app-errors{
+  color: #fff;
+}

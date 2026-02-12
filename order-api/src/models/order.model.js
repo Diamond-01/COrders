@@ -43,6 +43,18 @@ const update = async (id, orderData) => {
     return result.rows[0];
 };
 
+const remove = async (id) => {
+    const query = `
+        DELETE FROM orders
+        WHERE id = $1
+        RETURNING *
+    `;
+
+    const result = await pool.query(query, [id]);
+
+    return result.rows[0];
+};
+
 const findAll = async () => {
     const query = 'SELECT * FROM orders ORDER BY created_at DESC';
     const result = await pool.query(query);
@@ -55,4 +67,4 @@ const findById = async (id) => {
     return result.rows[0];
 };
 
-module.exports = { save, findAll, findById, update };
+module.exports = { save, findAll, findById, update, remove };

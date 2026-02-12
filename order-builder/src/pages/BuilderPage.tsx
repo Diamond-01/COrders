@@ -144,6 +144,18 @@ function BuilderPage({ initialTemplate, clearEditing}: BuilderPageProps) {
     }
   };
 
+  const handleCancelEdit = () => {
+    setTemplateId(null);
+    setTemplateName('');
+    setTemplateDescription('');
+    setFields([]);
+    setSelectedField(null);
+
+    if (clearEditing) {
+      clearEditing();
+    }
+  };
+
   return (
     <DndContext onDragEnd={handleDragEnd}>
       <div className="app-layout">
@@ -154,8 +166,19 @@ function BuilderPage({ initialTemplate, clearEditing}: BuilderPageProps) {
         <main className="app-canvas">
           <div className='app-canvas__actions'>
             <button className='app-save-button' onClick={handleSaveTemplate}>
-              💾 Guardar plantilla
+              💾 {templateId ? 'Actualizar plantilla' : 'Guardar plantilla'}
             </button>
+
+            {templateId && (
+              <button
+                className='app-cancel-button'
+                onClick={handleCancelEdit}
+                style={{ marginLeft: '1rem' }}
+              >
+                ❌ Cancelar edición
+              </button>
+            )}
+
             {templateErrors.length > 0 && (
               <div className="app-errors">
                 <h4>Errores de la plantilla</h4>

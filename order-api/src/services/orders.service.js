@@ -45,6 +45,10 @@ const updateOrder = async (id, data) => {
     return await OrderModel.update(id, updatedOrder);
 };
 
+const deleteOrder = async (id) => {
+    return await OrderModel.remove(id);
+};
+
 const getAllOrders = async () => {
     return await OrderModel.findAll();
 };
@@ -53,4 +57,4 @@ const getOrderById = async (id) => {
     return await OrderModel.findById(id);
 };
 
-module.exports = { createOrder, getAllOrders, getOrderById, updateOrder };
+module.exports = { createOrder, getAllOrders, getOrderById, updateOrder, deleteOrder };
