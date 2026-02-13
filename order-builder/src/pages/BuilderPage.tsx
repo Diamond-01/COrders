@@ -159,9 +159,9 @@ function BuilderPage({ initialTemplate, clearEditing }: BuilderPageProps) {
   const inputStyle: React.CSSProperties = {
               display: 'block',
               width: '100%',
-              backgroundColor: '#232335', // Fondo oscuro
+              backgroundColor: '#0f172a', // Fondo oscuro
               color: '#ffffff',           // Texto blanco
-              border: '1px solid #30363d', // Borde sutil
+              border: '2px solid #30363d', // Borde sutil
               borderRadius: '6px',        // Bordes redondeados
               padding: '10px',            // Espaciado interno
               outline: 'none',            // Quita el resaltado azul de Windows
@@ -187,7 +187,7 @@ function BuilderPage({ initialTemplate, clearEditing }: BuilderPageProps) {
               <button
                 className='app-cancel-button'
                 onClick={handleCancelEdit}
-                style={{ marginLeft: '1rem' }}
+                style={{ marginLeft: '1rem', borderRadius: '10px' }}
               >
                 ❌ Cancelar edición
               </button>
@@ -229,6 +229,7 @@ function BuilderPage({ initialTemplate, clearEditing }: BuilderPageProps) {
               style={{ ...inputStyle, marginBottom: '15px', resize: 'vertical'}}
             />
           </div>
+          
           <Canvas
             fields={fields}
             selectedField={selectedField}

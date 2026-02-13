@@ -34,7 +34,7 @@ export default function Header({ onNavigate }: HeaderProps) {
     const isActive = activeTab === page;
     return {
       ...buttonBase,
-      backgroundColor: isActive ? '#38bdf8' : '#1e293b',
+      backgroundColor: isActive ? '#3bba61' : '#1e293b',
       color: isActive ? '#0f172a' : '#94a3b8',
       boxShadow: isActive 
         ? '0 10px 15px -3px rgba(56, 189, 248, 0.3)' 
