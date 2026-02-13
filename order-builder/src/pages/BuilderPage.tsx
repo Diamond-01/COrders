@@ -15,13 +15,13 @@ import { validateOrderTemplate } from '../domain/orderTemplate/validateOrderTemp
 
 import './BuilderPage.css';
 
-interface BuilderPageProps{
+interface BuilderPageProps {
   initialTemplate?: any;
-  clearEditing?: ()=>void;
+  clearEditing?: () => void;
 }
 
-function BuilderPage({ initialTemplate, clearEditing}: BuilderPageProps) {
-  
+function BuilderPage({ initialTemplate, clearEditing }: BuilderPageProps) {
+
   const [templateName, setTemplateName] = useState('');
   const [templateDescription, setTemplateDescription] = useState('');
   const [templateErrors, setTemplateErrors] = useState<string[]>([]);
@@ -135,8 +135,8 @@ function BuilderPage({ initialTemplate, clearEditing}: BuilderPageProps) {
       console.log('✅ Guardado correctamente:', data);
       alert(
         isEditing
-        ? 'Plantilla actualizada correctamente ✔'
-        : 'Plantilla guardada correctamente 🎉'
+          ? 'Plantilla actualizada correctamente ✔'
+          : 'Plantilla guardada correctamente 🎉'
       );
     } catch (error) {
       console.error('❌ Error:', error);
@@ -155,6 +155,20 @@ function BuilderPage({ initialTemplate, clearEditing}: BuilderPageProps) {
       clearEditing();
     }
   };
+
+  const inputStyle: React.CSSProperties = {
+              display: 'block',
+              width: '100%',
+              backgroundColor: '#232335', // Fondo oscuro
+              color: '#ffffff',           // Texto blanco
+              border: '1px solid #30363d', // Borde sutil
+              borderRadius: '6px',        // Bordes redondeados
+              padding: '10px',            // Espaciado interno
+              outline: 'none',            // Quita el resaltado azul de Windows
+              marginBottom: '0.8rem',      // Separación
+              boxSizing: 'border-box' // ESTO ES CLAVE: evita que el padding "estire" el cuadro más del 100%
+            };
+
 
   return (
     <DndContext onDragEnd={handleDragEnd}>
@@ -192,22 +206,27 @@ function BuilderPage({ initialTemplate, clearEditing}: BuilderPageProps) {
 
           </div>
 
-          <div style={{ padding: '1rem', borderBottom: '1px solid #ccc' }}>
-            <h3>Propiedades de la plantilla</h3>
+          <div style={{
+            padding: '1rem',
+            
+          }}>
+            <h3 style={{ color: '#FFFFFF', fontSize: '25px', padding: '0.5rem' }}>Propiedades de la plantilla</h3>
+
+            
 
             <input
               type="text"
               placeholder="Nombre de la plantilla"
               value={templateName}
               onChange={(e) => setTemplateName(e.target.value)}
-              style={{ display: 'block', marginBottom: '0.5rem', width: '100%' }}
+              style={inputStyle}
             />
 
             <textarea
               placeholder="Descripción"
               value={templateDescription}
               onChange={(e) => setTemplateDescription(e.target.value)}
-              style={{ display: 'block', width: '100%' }}
+              style={{ ...inputStyle, marginBottom: '15px', resize: 'vertical'}}
             />
           </div>
           <Canvas

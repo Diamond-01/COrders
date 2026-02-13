@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import DynamicForm from '../components/DynamicForm';
 
+
+
 interface Template {
   id: string;
   title: string;
@@ -11,6 +13,7 @@ interface Template {
 interface Props{
   onEditTemplate: (template: Template) => void;
 }
+
 
 export default function TemplatesPage({onEditTemplate}: Props) {
   const [useMode, setUseMode] = useState(false);
@@ -57,6 +60,37 @@ export default function TemplatesPage({onEditTemplate}: Props) {
     fetchTemplates();
   }, []);
 
+
+  const baseButtonStyle: React.CSSProperties = {
+  padding: '8px 16px',
+  borderRadius: '8px',
+  border: '1px solid transparent',
+  color: 'white',
+  fontWeight: 'bold',
+  cursor: 'pointer',
+  display: 'flex',
+  alignItems: 'center',
+  gap: '8px',
+  transition: 'all 0.3s ease',
+  fontSize: '14px',
+  
+};
+
+const primaryButtonStyle: React.CSSProperties = {
+  ...baseButtonStyle,
+  backgroundColor: '#1e293b', // Fondo oscuro azulado
+  border: '1px solid #38bdf8', // Borde celeste
+  boxShadow: '0 0 3px rgba(56, 189, 248, 0.5)', // Brillo celeste
+};
+
+const dangerButtonStyle: React.CSSProperties = {
+  ...baseButtonStyle,
+  backgroundColor: '#7f1d1d', // Fondo rojo oscuro
+  border: '1px solid #ef4444', // Borde rojo brillante
+  boxShadow: '0 0 5px rgba(239, 68, 68, 0.5)', // Brillo rojo
+};
+
+
   return (
     <div style={{ display: 'flex', height: 'calc(100vh - 70px)' }}>
       
@@ -67,7 +101,8 @@ export default function TemplatesPage({onEditTemplate}: Props) {
         padding: '1rem',
         overflowY: 'auto'
       }}>
-        <h3>Plantillas guardadas</h3>
+        <h3 style= {{color: '#FFFFFF', fontSize: '25px', padding: '0.5rem'
+        }}>Plantillas guardadas</h3>
 
         {templates.map(template => (
           <div
@@ -80,8 +115,8 @@ export default function TemplatesPage({onEditTemplate}: Props) {
               cursor: 'pointer'
             }}
           >
-            <div style={{ fontSize: '40px' }}>📄</div>
-            <strong>{template.title}</strong>
+            <div style={{ fontFamily: 'Arial, sans-serif',fontSize: '40px', marginBottom: '6px'}}>📄</div>
+            <strong style={{ fontSize: '15px', color: '#FFFFFF'}}>{template.title}</strong>
           </div>
         ))}
       </div>
@@ -92,28 +127,22 @@ export default function TemplatesPage({onEditTemplate}: Props) {
 
         {selected && !useMode && (
           <>
-            <h2>{selected.title}</h2>
+            <h2 style={{ fontFamily: 'Arial, sans-serif', fontSize: '20px', color: '#FFFFFF'}}>{selected.title}</h2>
             <p>{selected.description}</p>
 
-            <div style={{ marginTop: '2rem' }}>
+            <div style={{ display: 'flex', gap: '10px', padding: '1rem'}}>
               <button 
-                style={{ marginRight: '1rem' }}
+                style={primaryButtonStyle}
                 onClick={() => setUseMode(true)}
               >
                 Usar plantilla
               </button>
 
-              <button onClick={()=> selected && onEditTemplate(selected)}>
+              <button style={primaryButtonStyle} onClick={()=> selected && onEditTemplate(selected)}>
                 Editar plantilla
               </button>
               <button
-                style={{
-                  backgroundColor: '#ff4d4f',
-                  marginTop: '2rem',
-                  marginLeft: '1rem',
-                  color: 'white',
-                  cursor: 'pointer'
-                }}
+                style={dangerButtonStyle}
                 onClick={() => handleDelete(selected.id)}
               >
                 🗑 Eliminar plantilla
@@ -129,7 +158,7 @@ export default function TemplatesPage({onEditTemplate}: Props) {
               ← Volver
             </button>
 
-            <h2>{selected.schema.name}</h2>
+            <h2 style={{ fontSize: '25px', color: '#FFFFFF', fontFamily: 'Arial, sans-serif'}}>{selected.schema.name}</h2>
 
             <DynamicForm fields={selected.schema.fields} title ={selected.title} />
           </>

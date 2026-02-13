@@ -6,3 +6,4 @@ ON orders(created_at);
 
 CREATE INDEX IF NOT EXISTS idx_orders_schema
 ON orders USING GIN (schema);
+ 
